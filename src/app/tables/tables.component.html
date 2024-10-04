@@ -1,0 +1,36 @@
+<input type="text" [(ngModel)]="count"> <button type="button" class="btn btn-primary" (click)="increaseData()">Increase Data</button>
+<br>
+<br>
+
+<div class="container" matSort>
+  <div class="row">
+    <div class="col-sm-4">
+<app-table-view [dataSource]="splittedData[0]" [isIcons]="true" (emitSort)="applySort($event)"></app-table-view>
+    </div>
+    <div class="col-sm-4" *ngIf="isTable2">
+      <app-table-view [dataSource]="splittedData[1]"></app-table-view>
+    </div>
+    <div class="col-sm-4" *ngIf="isTable3">
+      <app-table-view [dataSource]="splittedData[2]"></app-table-view>
+    </div>
+  </div>
+</div>
+<br>
+<mat-form-field>
+  <mat-select name="countryVaraible" [(value)]="selectedCount" placeholder="Country" (selectionChange)="freshPagination()">
+    <mat-option *ngFor="let count of pageCount" [value]="count">
+      {{count}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+&nbsp;&nbsp; / {{dataSource.data.length}} Profiles<div style="text-align:center">
+  <h4>
+    Basic Pagination
+  </h4>
+
+
+  <pagination-controls  [previousLabel]="prev"
+                        [nextLabel]="next" (pageChange)="pageChanged($event)" maxSize="4"></pagination-controls>
+
+</div>
+<app-paginator [pageSize]="selectedCount" [recordCount]="dataSource.data.length"  (page)="selectPage($event)"></app-paginator>
